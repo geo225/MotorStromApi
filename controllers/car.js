@@ -3,7 +3,7 @@
 const Car = require('../models/car')
 
 function getCar (req, res) {
-    let carId = req.params.CarId
+    let CarId = req.params.carId
 
     Car.findById(CarId, (err, Car) => {
         if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
@@ -26,14 +26,14 @@ function saveCar (req, res) {
     console.log('POST /api/Car')
     console.log(req.body)
 
-    let Car = new Car()
-    Car.name = req.body.name
-    Car.picture = req.body.picture
-    Car.price = req.body.price
-    Car.category = req.body.category
-    Car.description = req.body.description
+    let car = new Car()
+    car.name = req.body.name
+    car.Marca = req.body.Marca
+    car.CV = req.body.CV
+    car.category = req.body.category
+    car.description = req.body.description
 
-    Car.save((err, CarStored) => {
+    car.save((err, CarStored) => {
         if (err) res.status(500).send({message: `Error al salvar en la base de datos: ${err} `})
 
         res.status(200).send({ Car: CarStored })
@@ -41,7 +41,7 @@ function saveCar (req, res) {
 }
 
 function updateCar (req, res) {
-    let CarId = req.params.CarId
+    let CarId = req.params.carId
     let update = req.body
 
     Car.findByIdAndUpdate(CarId, update, (err, CarUpdated) => {
@@ -52,7 +52,7 @@ function updateCar (req, res) {
 }
 
 function deleteCar (req, res) {
-    let CarId = req.params.CarId
+    let CarId = req.params.carId
 
     Car.findById(CarId, (err, Car) => {
         if (err) res.status(500).send({message: `Error al borrar el Coche: ${err}`})
