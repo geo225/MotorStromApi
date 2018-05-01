@@ -12,6 +12,7 @@ api.get('/car/:carId',cors(), carCtrl.getCar)
 api.post('/car',cors(), carCtrl.saveCar)
 api.put('/car/:carId',cors(), carCtrl.updateCar)
 api.delete('/car/:carId',cors(), carCtrl.deleteCar)
+api.get('/user',cors(), userCtrl.getUsers)
 api.post('/signup',cors(), userCtrl.signUp)
 api.post('/signin',cors(), userCtrl.signIn)
 api.get('/private', cors(),auth, (req, res) => {
