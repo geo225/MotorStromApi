@@ -18,7 +18,7 @@ function getCars (req, res) {
         if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
         if (!Cars) return res.status(404).send({message: 'No existen Coches'})
 
-        res.send(200, { Cars })
+        res.status(200).send({ Cars })
     })
 }
 
