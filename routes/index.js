@@ -1,21 +1,23 @@
 'use strict'
 
 const express = require('express')
-const cors = require('cors')
 const carCtrl = require('../controllers/car')
 const userCtrl = require('../controllers/user')
 const auth = require('../middlewares/auth')
 const api = express.Router()
 
-api.get('/car',cors(), carCtrl.getCars)
-api.get('/car/:carId',cors(), carCtrl.getCar)
-api.post('/car',cors(), carCtrl.saveCar)
-api.put('/car/:carId',cors(), carCtrl.updateCar)
-api.delete('/car/:carId',cors(), carCtrl.deleteCar)
-api.get('/user',cors(), userCtrl.getUsers)
-api.post('/signup',cors(), userCtrl.signUp)
-api.post('/signin',cors(), userCtrl.signIn)
-api.get('/private', cors(),auth, (req, res) => {
+var cors = require('cors');
+api.use(cors());
+
+api.get('/car', auth, carCtrl.getCars)
+api.get('/car/:carId', auth, carCtrl.getCar)
+api.post('/car', auth, carCtrl.saveCar)
+api.put('/car/:carId', auth, carCtrl.updateCar)
+api.delete('/car/:carId', auth, carCtrl.deleteCar)
+api.get('/user', userCtrl.getUsers)
+api.post('/signup', userCtrl.signUp)
+api.post('/signin', userCtrl.signIn)
+api.get('/private', auth, (req, res) => {
     res.status(200).send({ message: 'Tienes acceso' })
 })
 

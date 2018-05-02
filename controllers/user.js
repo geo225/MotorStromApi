@@ -1,7 +1,6 @@
 'use strict'
 
 const User = require('../models/user')
-const bcrypt = require('bcrypt')
 const service = require('../services')
 
 function signUp (req, res) {
@@ -9,13 +8,18 @@ function signUp (req, res) {
         email: req.body.email,
         displayName: req.body.displayName,
         password: req.body.password
-    })
+    });
 
-    user.save((err) => {
-        if (err) return res.status(500).send({ message: `Error al crear el usuario: ${err}` })
-
-        return res.status(201).send({ token: service.createToken(user) })
-    })
+    user.save(function(err){
+        console.log('entra?');
+        if(err){
+            console.log(err);
+            // res.status(500).send({ message: 'Error on create user'});
+            res.status(500).send(err);
+        }else{
+            return res.status(201).send({ token: service.createToken(user) });
+        }
+    });
 }
 function getUsers (req, res) {
     User.find({}, (err, Users) => {
@@ -27,17 +31,39 @@ function getUsers (req, res) {
 }
 
 function signIn (req, res) {
-    User.find({ email: req.body.email }, (err, user) => {
-        if (err) return res.status(500).send({ message: err })
-        if (!user) return res.status(404).send({ message: 'No existe el usuario' })
-        if (!bcrypt.compare(user.password, req.body.password)) return res.status(401).send({ message: 'Contraseña Incorrecta' });
+    console.log('signIn', req.body.username );
+    if(req.body.username && req.body.password) {
 
-        req.user = user
-        res.status(200).send({
-            message: 'Te has logueado correctamente',
-            token: service.createToken(user)
-        })
-    })
+
+        User.findOne({username: req.body.username}, function (err, user) {
+
+            console.log(user);
+
+            var validPass = user.validPassword(req.body.password);
+            if (err) {
+                return res.status(500).send({message: err});
+            }
+
+            if(!validPass){
+                return res.status(403).send({message: 'Password error'});
+            }
+            if (!user) {
+                return res.status(404).send({message: 'User not found'});
+            }else{
+                req.user = user;
+                res.status(200).send({
+                    message: 'Login OK',
+                    username : req.body.username,
+                    token: service.createToken(user)
+                });
+            }
+
+
+        });
+    }else{
+        res.status(403).send({'message':'username or password is empty'});
+    }
+
 }
 
 module.exports = {
