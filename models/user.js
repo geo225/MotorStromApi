@@ -33,7 +33,9 @@ UserSchema.pre('save', function(next) {
         });
     });
 });
-
+UserSchema.methods.validPassword = function(password){
+    return bcrypt.compareSync(password, this.password);
+};
 UserSchema.methods.gravatar = function () {
     if (!this.email) return `https://gravatar.com/avatar/?s=200&d=retro`
 

@@ -1,7 +1,7 @@
 'use strict'
 
 const User = require('../models/user')
-const service = require('../services')
+const service = require('../services/index')
 
 function signUp (req, res) {
     const user = new User({
@@ -31,11 +31,11 @@ function getUsers (req, res) {
 }
 
 function signIn (req, res) {
-    console.log('signIn', req.body.username );
-    if(req.body.username && req.body.password) {
+    console.log('signIn', req.body.email );
+    if(req.body.email && req.body.password) {
 
 
-        User.findOne({username: req.body.username}, function (err, user) {
+        User.findOne({email: req.body.email}, function (err, user) {
 
             console.log(user);
 
@@ -53,7 +53,7 @@ function signIn (req, res) {
                 req.user = user;
                 res.status(200).send({
                     message: 'Login OK',
-                    username : req.body.username,
+                    email : req.body.email,
                     token: service.createToken(user)
                 });
             }
