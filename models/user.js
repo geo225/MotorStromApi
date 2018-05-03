@@ -6,10 +6,10 @@ const bcrypt = require('bcrypt-nodejs')
 const crypto = require('crypto')
 
 const UserSchema = new Schema({
-    email: { type: String, unique: true, lowercase: true },
-    displayName: String,
+    email: { type: String, unique: true, lowercase: true , required: true},
+    displayName: { type: String, unique: true, lowercase: true, required : true},
     avatar: String,
-    password: { type: String },
+    password: { type: String, required: true },
     signupDate: { type: Date, default: Date.now() },
     lastLogin: Date
 })
@@ -19,7 +19,6 @@ UserSchema.pre('save', function(next) {
     if(!user.isModified('password')) {
         return next();
     }
-
     bcrypt.genSalt(10, function (err ,salt) {
         if(err) {
             return next();
@@ -38,7 +37,6 @@ UserSchema.methods.validPassword = function(password){
 };
 UserSchema.methods.gravatar = function () {
     if (!this.email) return `https://gravatar.com/avatar/?s=200&d=retro`
-
     const md5 = crypto.createHash('md5').update(this.email).digest('hex')
     return `https://gravatar.com/avatar/${md5}?s=200&d=retro`
 }
