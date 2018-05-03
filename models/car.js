@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const CarSchema = Schema({
-    name: String,
-    Marca: String,
+    name: {type: String, lowercase: true },
+    Marca: {type: String,lowercase: true },
     CV: { type: Number, default: 0 },
     category: { type: String, enum: ['gasolina', 'diesel', 'electrico'] },
     description: String
