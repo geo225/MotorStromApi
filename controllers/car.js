@@ -1,6 +1,10 @@
 'use strict'
 
 const Car = require('../models/car')
+var fs = require('fs');
+
+
+var imgPath = '/images/civic.jpg';
 
 function getCar (req, res) {
     let CarId = req.params.carId
@@ -26,12 +30,20 @@ function saveCar (req, res) {
     console.log('POST /api/Car')
     console.log(req.body)
 
+    function base64_encode(file) {
+        // read binary data
+        var bitmap = fs.readFileSync(file);
+        // convert binary data to base64 encoded string
+        return new Buffer(bitmap).toString('base64');
+    }
     let car = new Car()
     car.name = req.body.name
     car.Marca = req.body.Marca
     car.CV = req.body.CV
     car.category = req.body.category
     car.description = req.body.description
+    car.img.data = base64_encode(req.body.img.path);
+    car.img.contentType = 'img/jpg';
 
     car.save((err, CarStored) => {
         if (err) res.status(500).send({message: `Error al salvar en la base de datos: ${err} `})

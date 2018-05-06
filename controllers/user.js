@@ -3,13 +3,13 @@
 const User = require('../models/user')
 const service = require('../services/index')
 
-function signUp(req, res) {
-    const user = new User({
+function signUp (req, res) {
+    var user = new User({
         email: req.body.email,
         displayName: req.body.displayName,
         password: req.body.password
     });
-    user.save(function (err) {
+    user.save(function(err){
         if (err) {
             if (err.code === 11000){
                 res.status(409).send({message: "Usuario Duplicado"});
