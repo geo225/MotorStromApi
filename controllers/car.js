@@ -59,7 +59,7 @@ function updateCar(req, res) {
     let update = req.body
 
     Car.findByIdAndUpdate(CarId, update, (err, CarUpdated) => {
-        if (err) res.status(500).send({message: `Error al actualizar el Caro: ${err}`})
+        if (err) res.status(500).send({message: `Error al actualizar el Car: ${err}`})
 
         res.status(200).send({Car: CarUpdated})
     })

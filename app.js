@@ -12,7 +12,7 @@ const options = {
     autoClean: true
 };
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}))
 // parse data with connect-multiparty.
 app.use(formData.parse(options));
 // clear from the request and delete all empty files (size == 0)
