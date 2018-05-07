@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose')
-const Promise = require("bluebird")
+mongoose.Promise = require('bluebird');
 const app = require('./app')
 const config = require('./config')
 

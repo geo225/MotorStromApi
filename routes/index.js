@@ -21,9 +21,9 @@ var upload = multer({ storage: storage })
 var cors = require('cors');
 api.use(cors());
 
-api.get('/car', carCtrl.getCars)
+api.get('/car',auth, carCtrl.getCars)
 api.get('/car/:carId', auth, carCtrl.getCar)
-api.post('/car', carCtrl.saveCar)
+api.post('/car',auth, carCtrl.saveCar)
 api.put('/car/:carId', auth, carCtrl.updateCar)
 api.delete('/car/:carId', auth, carCtrl.deleteCar)
 api.get('/user', userCtrl.getUsers)

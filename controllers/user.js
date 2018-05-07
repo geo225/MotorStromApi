@@ -31,17 +31,19 @@ function getUsers(req, res) {
 }
 
 function signIn(req, res) {
-    console.log('signIn', req.body.email);
     if (req.body.email && req.body.password) {
         User.findOne({email: req.body.email}, function (err, user) {
             if (user !== null) {
                 var validPass = user.validPassword(req.body.password);
                 if (err) {
+                    console.log('signIn error ', req.body.email);
                     return res.status(500).send({message: err});
                 }
                 if (!validPass) {
+                    console.log('signIn invalid password ', req.body.email);
                     return res.status(403).send({message: 'Password error'});
                 } else {
+                    console.log('signIn success ', req.body.email);
                     req.user = user;
                     res.status(200).send({
                         message: 'Login OK',
@@ -51,6 +53,7 @@ function signIn(req, res) {
                 }
             }
             else{
+                console.log('signIn error ', req.body.email);
                 return res.status(404).send({message: 'User not found'});
             }
         });
