@@ -27,10 +27,9 @@ api.post('/car',auth, carCtrl.saveCar)
 api.put('/car/:carId', auth, carCtrl.updateCar)
 api.delete('/car/:carId', auth, carCtrl.deleteCar)
 api.get('/user', userCtrl.getUsers)
+api.put('/user/:userId', auth, userCtrl.updateUser)
+api.delete('user/:userId', auth, userCtrl.deleteUser)
 api.post('/signup', userCtrl.signUp)
 api.post('/signin', userCtrl.signIn)
-api.get('/private', auth, (req, res) => {
-    res.status(200).send({ message: 'Tienes acceso' })
-})
 
 module.exports = api;

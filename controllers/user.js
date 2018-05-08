@@ -29,7 +29,29 @@ function getUsers(req, res) {
         res.status(200).send({Users})
     })
 }
+function updateUser(req, res) {
+    let UserId = req.params.userId
+    let update = req.body
 
+    Car.findByIdAndUpdate(UserId, update, (err, UserUpdated) => {
+        if (err) res.status(500).send({message: `Error al actualizar el Usuario: ${err}`})
+
+        res.status(200).send({User: UserUpdated})
+    })
+}
+
+function deleteUser(req, res) {
+    let UserId = req.params.userId
+
+    Car.findById(UserId, (err, User) => {
+        if (err) res.status(500).send({message: `Error al borrar el Usuario: ${err}`})
+
+        User.remove(err => {
+            if (err) res.status(500).send({message: `Error al borrar el Usuario: ${err}`})
+            res.status(200).send({message: 'El Usuario ha sido eliminado'})
+        })
+    })
+}
 function signIn(req, res) {
     if (req.body.email && req.body.password) {
         User.findOne({email: req.body.email}, function (err, user) {
@@ -65,5 +87,7 @@ function signIn(req, res) {
 module.exports = {
     signUp,
     signIn,
-    getUsers
+    getUsers,
+    updateUser,
+    deleteUser
 }
