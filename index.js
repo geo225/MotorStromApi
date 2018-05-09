@@ -11,7 +11,7 @@ mongoose.connect(config.db, (err, res) => {
     }
     console.log('Conexión a la base de datos establecida...')
 
-    app.listen(config.port, () => {
+    app.listen(config.port,'0.0.0.0', () => {
         console.log(`API REST corriendo en http://localhost:${config.port}`)
     })
 })
