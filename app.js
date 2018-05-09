@@ -21,18 +21,7 @@ app.use(formData.format());
 app.use(formData.stream());
 // union body and files
 app.use(formData.union());
-app.engine('.hbs', hbs({
-    defaultLayout: 'default',
-    extname: '.hbs'
-}))
-app.set('view engine', '.hbs')
-
 app.use('/api/v1', api)
-app.get('/login', (req, res) => {
-    res.render('login')
-})
-app.get('/', (req, res) => {
-    res.render('car')
-})
+
 
 module.exports = app

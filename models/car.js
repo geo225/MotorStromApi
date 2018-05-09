@@ -7,7 +7,7 @@ const CarSchema = Schema({
     name: {type: String, lowercase: true },
     Marca: {type: String,lowercase: true },
     CV: { type: Number, default: 0 },
-    category: { type: String, enum: ['gasolina', 'diesel', 'electrico'] },
+    category: { type: String, enum: ['Gasolina', 'Diesel', 'Electrico'] },
     img: { data: String, contentType: String },
     description: String
 })
