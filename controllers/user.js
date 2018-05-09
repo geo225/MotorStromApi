@@ -24,7 +24,6 @@ function signUp (req, res) {
         }
     });
 }
-
 function getUsers(req, res) {
     User.find({}, (err, Users) => {
         if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})

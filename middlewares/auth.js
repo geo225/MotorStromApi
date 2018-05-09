@@ -18,5 +18,24 @@ function isAuth (req, res, next) {
             res.status(response.status)
         })
 }
+function isAdmin (req, res, next) {
+    if (!req.headers.authorization) {
+        return res.status(403).send({ message: 'No tienes autorización' })
+    }
 
-module.exports = isAuth
+    const token = req.headers.authorization.split(' ')[1]
+
+    services.isAdmin(token)
+        .then(response => {
+            req.user = response
+            next()
+        })
+        .catch(response => {
+            res.status(response.status)
+        })
+}
+
+module.exports = {
+    isAuth,
+    isAdmin
+}
