@@ -33,6 +33,8 @@ function saveCar(req, res) {
         car.CV = req.body.CV;
         car.category = req.body.category;
         car.description = req.body.description;
+        car.userEmail = req.body.userEmail;
+        car.userId = req.body.userId
         if (req.body.img !== undefined){
             car.img.data = req.body.img.value;
             car.img.contentType = req.body.img.filetype;

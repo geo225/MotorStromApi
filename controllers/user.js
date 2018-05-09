@@ -17,7 +17,10 @@ function signUp (req, res) {
                 res.status(500).send(err);
             }
         } else {
-            return res.status(201).send({token: service.createToken(user)});
+            return res.status(201).send({
+                token: service.createToken(user),
+                user: user
+            });
         }
     });
 }
@@ -70,7 +73,8 @@ function signIn(req, res) {
                     res.status(200).send({
                         message: 'Login OK',
                         email: req.body.email,
-                        token: service.createToken(user)
+                        token: service.createToken(user),
+                        user: user
                     });
                 }
             }

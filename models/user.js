@@ -11,6 +11,7 @@ const UserSchema = new Schema({
     avatar: String,
     password: { type: String, required: true },
     signupDate: { type: Date, default: Date.now() },
+    isAdmin: { type: Boolean, default: false},
     lastLogin: Date
 })
 

@@ -9,7 +9,9 @@ const CarSchema = Schema({
     CV: { type: Number, default: 0 },
     category: { type: String, enum: ['Gasolina', 'Diesel', 'Electrico'] },
     img: { data: String, contentType: String },
-    description: String
+    description: String,
+    userEmail: String,
+    userId: String
 })
 
 module.exports = mongoose.model('Car', CarSchema)
