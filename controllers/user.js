@@ -44,7 +44,7 @@ function updateUser(req, res) {
     let UserId = req.params.userId
     let update = req.body
 
-    Car.findByIdAndUpdate(UserId, update, (err, UserUpdated) => {
+    User.findByIdAndUpdate(UserId, update, (err, UserUpdated) => {
         if (err) res.status(500).send({message: `Error al actualizar el Usuario: ${err}`})
 
         res.status(200).send({User: UserUpdated})
@@ -54,7 +54,7 @@ function updateUser(req, res) {
 function deleteUser(req, res) {
     let UserId = req.params.userId
 
-    Car.findById(UserId, (err, User) => {
+    User.findById(UserId, (err, User) => {
         if (err) res.status(500).send({message: `Error al borrar el Usuario: ${err}`})
 
         User.remove(err => {

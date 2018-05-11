@@ -16,7 +16,7 @@ api.delete('/car/:carId', auth.isAuth, carCtrl.deleteCar)
 api.get('/user',auth.isAdmin, userCtrl.getUsers)
 api.get('/user/:userId', auth.isAuth, userCtrl.getUser)
 api.put('/user/:userId', auth.isAuth, userCtrl.updateUser)
-api.delete('user/:userId', auth.isAuth, userCtrl.deleteUser)
+api.delete('/user/:userId', auth.isAuth, userCtrl.deleteUser)
 api.post('/signup', userCtrl.signUp)
 api.post('/signin', userCtrl.signIn)
 
