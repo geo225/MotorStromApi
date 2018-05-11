@@ -10,13 +10,13 @@ function isAuth (req, res, next) {
     const token = req.headers.authorization.split(' ')[1]
 
     services.decodeToken(token)
-        .then(response => {
-            req.user = response
-            next()
+        .then(function(response) {
+            req.user = response;
+            next();
         })
-        .catch(response => {
-            res.status(response.status)
-        })
+        .catch(function(response){
+            res.status(403).send({ message: 'Token Invalid' });
+        });
 }
 function isAdmin (req, res, next) {
     if (!req.headers.authorization) {
@@ -26,13 +26,13 @@ function isAdmin (req, res, next) {
     const token = req.headers.authorization.split(' ')[1]
 
     services.isAdmin(token)
-        .then(response => {
-            req.user = response
-            next()
+        .then(function(response) {
+            req.user = response;
+            next();
         })
-        .catch(response => {
-            res.status(response.status)
-        })
+        .catch(function(response){
+            res.status(403).send({ message: 'No tienes autorización' });
+        });
 }
 
 module.exports = {

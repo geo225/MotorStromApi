@@ -24,6 +24,15 @@ function signUp (req, res) {
         }
     });
 }
+function getUser(req, res) {
+    let UserId = req.params.userId
+    User.findById(UserId, (err, User) => {
+        if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+        if (!User) return res.status(404).send({message: `El Usuario no existe`})
+
+        res.status(200).send({User})
+    })
+}
 function getUsers(req, res) {
     User.find({}, (err, Users) => {
         if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
@@ -91,6 +100,7 @@ module.exports = {
     signUp,
     signIn,
     getUsers,
+    getUser,
     updateUser,
     deleteUser
 }
