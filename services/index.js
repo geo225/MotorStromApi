@@ -42,8 +42,12 @@ function isAdmin(token){
     const decoded = new Promise((resolve, reject) => {
         try {
             const payload = jwt.decode(token, config.SECRET_TOKEN)
-
             if (payload.admin == false) {
+                reject({
+                    status: 401,
+                    message: 'Unauthorized'
+                })
+            }if(payload.exp <= moment().unix()){
                 reject({
                     status: 401,
                     message: 'El token ha expirado'

@@ -1,10 +1,6 @@
 'use strict'
 
 const Car = require('../models/car')
-var fs = require('fs');
-
-
-var imgPath = '/images/civic.jpg';
 
 function getCar(req, res) {
     let CarId = req.params.carId

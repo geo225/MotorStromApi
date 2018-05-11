@@ -3,7 +3,6 @@
 const express = require('express')
 const formData = require("express-form-data");
 const bodyParser = require('body-parser')
-const hbs = require('express-handlebars')
 const app = express()
 const api = require('./routes')
 
