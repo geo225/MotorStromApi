@@ -42,12 +42,15 @@ function getUsers(req, res) {
 }
 function updateUser(req, res) {
     let UserId = req.params.userId
-    let update = req.body
+    let bodyUpdate = req.body
 
-    User.findByIdAndUpdate(UserId, update, (err, UserUpdated) => {
-        if (err) res.status(500).send({message: `Error al actualizar el Usuario: ${err}`})
-
-        res.status(200).send({User: UserUpdated})
+    User.findById(UserId, (err, User) => {
+        if (err) res.status(500).send({message: `Error al Actualizar el Usuario: ${err}`})
+        User.set(bodyUpdate)
+        User.save(function(err, UserUpdated) {
+                if (err) res.status(500).send({message: `Error al actualizar el Usuario: ${err}`})
+                res.status(200).send({User: UserUpdated})
+        })
     })
 }
 
