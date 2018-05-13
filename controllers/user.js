@@ -80,13 +80,17 @@ function signIn(req, res) {
                     return res.status(403).send({message: 'Password error'});
                 } else {
                     console.log('signIn success ', req.body.email);
-                    req.user = user;
-                    res.status(200).send({
-                        message: 'Login OK',
-                        email: req.body.email,
-                        token: service.createToken(user),
-                        user: user
-                    });
+                    user.set({lastLogin : Date.now()})
+                    user.save(function(err, user) {
+                        req.user = user;
+                        res.status(200).send({
+                            message: 'Login OK',
+                            email: req.body.email,
+                            token: service.createToken(user),
+                            user: user
+                        });
+                    })
+
                 }
             }
             else{
